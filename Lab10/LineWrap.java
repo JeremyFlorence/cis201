@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class LineWrap {
+
+    public static void main (String [] args) throws FileNotFoundException {
+        Scanner input = new Scanner(System.in);
+	String fileName = "";
+	File file = new File(fileName);
+	do {
+	    System.out.print("Enter file name: ");
+	    fileName = input.nextLine();
+	    file = new File(fileName);
+	    if (!file.exists()) {
+		System.out.println(fileName + " not found");
+	    }
+	} while (!file.exists());
+	Scanner fileInput = new Scanner(file);
+			// put code here to construct a Scanner object
+                        // open on a file named "text1.txt"
+	
+        lineWrap(fileInput);
+    }
+
+    // write lineWrap here
+    public static void lineWrap(Scanner input) {
+	String text = "";
+	while (input.hasNextLine()) {
+	    text = input.nextLine();
+	    if (text.length() > 60) {
+		System.out.println(text.substring(0, 60));
+		System.out.println(text.substring(60));
+	    } else {
+		System.out.println(text);
+	    }
+	}
+    }
+
+}

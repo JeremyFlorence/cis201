@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+public class BabyNames {
+    public static void main(String[] args) throws FileNotFoundException {
+	Scanner fileInput = new Scanner(new File("names.txt"));
+	String name = getName();
+	String line = getDataLine(name, fileInput);
+	if(line.equals("")) {
+	    System.out.println("\"" + name + "\" not found.");
+	} else {
+	    display(line);
+	}
+    }
+    
+    public static String getName() {
+	Scanner userInput = new Scanner(System.in);
+	System.out.println("This program graphs the popularity of a name\n"
+			    + "in Social Security baby name statistics\n"
+			    + "recorded since the year 1900.");
+	System.out.print("Type a name: ");
+	return userInput.next();
+    }
+    
+    public static String getDataLine(String name, Scanner fileInput) {
+	
+	String fileName = "";
+	while(fileInput.hasNextLine()) {
+	    Scanner lineScanner = new Scanner(fileInput.nextLine());
+	    fileName = lineScanner.next();
+	    if (fileName.equalsIgnoreCase(name)) {
+		return fileName + lineScanner.nextLine();
+	    }
+	}
+	return "";
+    }
+    
+    public static void display(String line) {
+	Scanner readLine = new Scanner(line);
+	int year = 1900;
+	System.out.println("Statistics on name \"" + readLine.next() + "\"");
+	for(int i = 1; i <= 11; i++) {
+	    System.out.println(year + ": " + readLine.next());
+	    year += 10;
+	}
+    }
+}

@@ -1,0 +1,33 @@
+import java.util.*;
+
+
+public class LotsOfPoints {
+
+    public static void main (String [] args) {
+	Scanner sc = new Scanner(System.in);
+	System.out.print("How many data points do you want to use? ");
+	int n = sc.nextInt();
+        System.out.println("Calculating the area of the unit circle.");
+	System.out.println("The area is approximately " + estimateArea(n));
+    }
+
+    public static double estimateArea (int n) {
+        // finish this method
+        Random rand = new Random();
+	double x = 0;
+	double y = 0;
+	int inCircle = 0;
+	int outsideCircle = 0;
+	for (int i = 1; i <= n; i++) {
+	    x = rand.nextDouble();
+	    y = rand.nextDouble();
+	    double d = (double)(Math.sqrt(x*x + y*y));
+	    if (d < 1) {
+		inCircle++;
+	    }
+	}
+	return (double)(inCircle) / n) *4;
+	
+    }
+
+}

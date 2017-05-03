@@ -1,0 +1,49 @@
+public class Fraction {
+    
+    //fields
+    int numerator;
+    int denominator;
+    
+    //Constructor
+    public Fraction (int n, int d) {
+	numerator = n;
+	denominator = d;
+    }
+    
+    
+    public String toString() {
+	return (numerator + "/" + denominator);
+    }
+
+    public void setNumerator(int n) {
+	numerator = n;
+    }
+    
+    public void setDenominator(int d) {
+	denominator = d;
+    }
+    
+    private int gcd(int n, int d) {
+	if (d == 0) {
+	    return n;
+	} else {
+	    while (d != 0) {
+		if (n > d) {
+		    n = n - d;
+		} else {
+		    d = d - n;
+		}
+	    }
+	}
+	return n;
+    }
+    
+    public void reduce() {
+	int gcd = gcd(numerator, denominator);
+	numerator = numerator / gcd;
+	denominator = denominator / gcd;
+    }
+    
+    
+  
+}

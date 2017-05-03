@@ -1,0 +1,29 @@
+import java.util.Scanner;
+public class CheckDigit {
+    public static void main(String[] args) {
+	Scanner input = new Scanner(System.in);
+	System.out.print("Enter your student ID (7 digits) : ");
+	int id = input.nextInt();
+	System.out.println("ID entered = " + id);
+	int lastDigit = findLast(id);
+	System.out.println("check digit calculated = " + lastDigit);
+	System.out.println(checkLast(id,lastDigit));
+	
+    }
+    
+    public static int findLast(int id) {
+	int lastDigit = id/(int)(Math.pow(10,6));
+	for (int i = 2; i <= 6; i++) {
+	    lastDigit += i*(id / (int)(Math.pow(10,(-i+7))));
+	}
+	return lastDigit % 10;
+    }
+    
+    public static String checkLast(int id,int lastDigit) {
+	if (lastDigit == (id % 10)) {
+	    return "Valid ID";
+	} else {
+	    return "Invalid ID";
+	}
+    }
+}

@@ -1,0 +1,51 @@
+/* 
+    Name: Jeremy Florence
+    Course: CIS 201 - Computer Science I
+    Section: 001
+    Assignment: 5
+*/
+
+import java.util.*;
+
+public class Ruler {
+    public static void main(String[] args) {
+	System.out.print("How many inches long will the ruler be?");
+	Scanner sc = new Scanner(System.in);
+	int inches = sc.nextInt();
+	drawRuler(inches);    
+    }
+
+    public static void drawRuler(int inches) {
+	topPart(inches);
+	middlePart(inches);
+	bottomPart(inches);
+    }
+    
+    public static void topPart(int inches) {
+	System.out.print(" ");
+	for (int i = 1; i <= 4 * inches - 1; i++) {
+	    System.out.print("_");
+	}
+	System.out.println("__");
+    }
+    
+    public static void middlePart(int inches) {
+	for (int i = 1; i <= 2 * inches + 1; i++) {
+	    System.out.print("|'");
+	}
+	System.out.println("|");
+    }
+    
+    public static void bottomPart(int inches) {
+	System.out.print("|");
+	for (int i = 1; i <= inches; i++) {
+	    System.out.print("__");
+	    for (int j = 1; j > i / 10; j--) {
+		System.out.print("_");
+	    }
+	    System.out.print(i);
+	    
+	}
+	System.out.println("_|");
+    }
+}

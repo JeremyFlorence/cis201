@@ -1,0 +1,147 @@
+/*
+    Name: Jeremy Florence
+    Course: CIS 201 - Computer Science I
+    Section: 001
+    Assignment: 8
+*/
+
+//This program allows two people to play the game of "Pig",
+//where players roll a 6 sided die to earn points. If they roll a 1,
+//they get no points for their turn. The first person to get 100
+//points wins the game, and they will have the option to play again.
+import java.util.*;
+public class Pig {
+    public static void main(String[] args) {
+	instructions();
+	
+	//if they say they want to play, play the game.
+	if (start("Do you want to play (y/n)? ")) {
+	    
+	    //after each game finishes, ask if they want to play again.
+	    do {
+		playGame();
+	    } while (start("Do you want to play AGAIN (y/n)? "));
+	}
+	
+    }
+    
+    //Prints the game instructions.
+    public static void instructions() {
+	System.out.println("Welcome to the game of \"pig\".\n" +
+			"This is a two-player game.\n" +
+			"The first player rolls a 6-sided die.\n" +
+			"The player can roll as many times as she/he\n" +
+			"likes until she/he wishes to stop or gets a 1.\n" +
+			"If the first player chooses to stop, she/he\n" +
+			"gets the sum of all her/his rolls added to\n" +
+			"her/his score. If the first player stops because\n" +
+			"she/he has rolled a one, she/he gets no points\n" +
+			"for that turn. The first player to reach 100\n" +
+			"points wins the game.");
+    }
+    
+    //Takes a string to use as a prompt, prints the prompt, and the user
+    //must answer y or n(yes or no), and based on their input this method
+    //will return true or false.
+    public static boolean start(String prompt) {
+	Scanner input = new Scanner(System.in);
+	String answer = "";
+	
+	//Prompt the user with a yes or no question
+	System.out.print(prompt);
+	
+	//If they answer yes, return true, if no, return false.
+	//If they enter anything other than "y" or "n", prompt them again
+	//and make them enter another answer.
+	while (!answer.equalsIgnoreCase("y") && !answer.equalsIgnoreCase("n")) {
+	    answer = input.next();
+	    if (answer.equalsIgnoreCase("y"))  {
+		return true;
+	    } else if (answer.equalsIgnoreCase("n")) {
+		return false;
+	    } else {
+		System.out.println("You must answer y or n. ");
+		System.out.print(prompt);
+	    }
+	}
+	return false;
+    }
+    
+    //Plays the game.
+    public static void playGame() {
+	int playerOneScore = 0;
+	int playerTwoScore = 0;
+	
+	//As long as both players have scores less than 100, the game
+	//will continue.
+	while (playerOneScore < 100 && playerTwoScore < 100) {
+	    
+	    //Player 1's turn
+	    playerOneScore += roll("PLAYER 1 ");
+	    score(playerOneScore, playerTwoScore);
+	    
+	    //if player one has 100 or more points, do the continuation test
+	    //again so that player 2 wont have another turn.
+	    if (playerOneScore >= 100) {
+		continue;
+	    }
+	    
+	    //Player 2's turn
+	    playerTwoScore += roll("PLAYER 2 ");
+	    score(playerOneScore, playerTwoScore);
+	}
+    }
+	
+    //Handles the processes of each roll.
+    public static int roll(String player) {
+	boolean answer = true;
+	int turnScore = 0;
+	int roll;
+	Scanner input = new Scanner(System.in);
+	Random rand = new Random();
+	System.out.println();
+	System.out.println(player + "************************************ " +
+			  "rolling...");
+	
+	//Rolls at least once and asks the user if they want to roll again,
+	//unless they roll a 1 which will earn them nothing for their
+	//entire turn.
+	do {
+	    roll = rand.nextInt(6) + 1;
+	    System.out.println("roll: " + roll);
+	    
+	    //If they roll a 1, return zero points earned for the turn.
+	    if (roll == 1) {
+		System.out.println("You rolled a 1. Sorry!\n");
+		return 0;
+	    }
+	    turnScore += roll;
+	    
+	    answer = start("Roll again (y/n)? ");
+	    
+	    //If they say they dont want to roll again, 
+	    //say it was a wise choice.
+	    if (answer == false) {
+		System.out.println("A wise choice\n");
+	    }
+	} while (roll != 1 && answer);
+	
+	return turnScore;
+    }
+   
+    //Keeps track of the score and prints the scores out when called.
+    //Also determines who wins.
+    public static void score(int playerOneScore, int playerTwoScore) {
+	System.out.println("Score");
+	System.out.println("Player 1: " + playerOneScore);
+	System.out.println("Player 2: " + playerTwoScore);
+	
+	//If a player has 100 or more points, that player wins.
+	if (playerOneScore >= 100) {
+	    System.out.println("Player 1 wins");
+	}
+	if (playerTwoScore >= 100) {
+	    System.out.println("Player 2 wins");
+	}
+    }
+}
